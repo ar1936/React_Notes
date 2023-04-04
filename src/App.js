@@ -34,7 +34,6 @@ class App extends Component {
       status: note.status === 'new' ? 'completed' : 'new'
       
     }
-    console.log("node.status = ",note.status);
     const index = this.state.notes.findIndex(i => i.id === note.id)
     const notes = [...this.state.notes]
     notes[index] = updatedNote
