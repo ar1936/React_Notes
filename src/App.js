@@ -11,7 +11,6 @@ class App extends Component {
   state = { notes: [], filter: 'none' }
   async componentDidMount() {
     try {
-      console.log("first");
       const { data: { listNotes: { items }}} = await API.graphql(graphqlOperation(listNotes))
       this.setState({ notes: items })
     } catch (err) {
@@ -23,11 +22,8 @@ class App extends Component {
     const newNotes = this.state.notes
     this.setState({ notes })
     try {
-      console.log("second");
       const data = await API.graphql(graphqlOperation(createNote, { input: note }))
-      console.log("second 1",API.graphql(graphqlOperation(createNote, { input: note })));
       this.setState({ notes: [data.data.createNote, ...newNotes] })
-      console.log("second 2",this.state);
     } catch (err) {
       console.log('error creating note..', err)
     }
@@ -45,9 +41,7 @@ class App extends Component {
     this.setState({ notes })
 
     try {
-      console.log("third");
       await API.graphql(graphqlOperation(updateNote, { input: updatedNote }))
-      console.log("third 1 ",API.graphql(graphqlOperation(updateNote, { input: updatedNote })));
     } catch (err) {
       console.log('error updating note...', err)
     }
@@ -57,7 +51,6 @@ class App extends Component {
     const notes = this.state.notes.filter(n => n.id !== note.id)
     this.setState({ notes })
     try {
-      console.log("fourth");
       await API.graphql(graphqlOperation(deleteNote, { input }))
     } catch (err) {
       console.log('error deleting note...', err)
